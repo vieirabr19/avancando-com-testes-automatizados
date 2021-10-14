@@ -19,7 +19,9 @@ describe(PhotoFrameComponent.name, () => {
     expect(component).toBeTruthy();
   });
 
-  it(`#${PhotoFrameComponent.prototype.like.name} should trigger (@Output liked) once when called  multiple times within debounce time`, fakeAsync(() => {
+  it(`#${PhotoFrameComponent.prototype.like.name}
+    should trigger (@Output liked) once when called
+    multiple times within debounce time`, fakeAsync(() => {
       fixture.detectChanges();
       let times = 0;
       component.liked.subscribe(() => times++);
@@ -29,16 +31,18 @@ describe(PhotoFrameComponent.name, () => {
       expect(times).toBe(1);
   }));
 
-  it(`#${PhotoFrameComponent.prototype.like.name} should trigger (@Output liked) two times when called outside debounce time`, fakeAsync(() => {
-    fixture.detectChanges();
-    let times = 0;
-    component.liked.subscribe(() => times++);
-    component.like();
-    tick(500);
-    component.like();
-    tick(500);
-    expect(times).toBe(2);
-  }));
+  it(`#${PhotoFrameComponent.prototype.like.name}
+    should trigger (@Output liked) two times when
+    called outside debounce time`, fakeAsync(() => {
+      fixture.detectChanges();
+      let times = 0;
+      component.liked.subscribe(() => times++);
+      component.like();
+      tick(500);
+      component.like();
+      tick(500);
+      expect(times).toBe(2);
+    }));
 
   it(`(D) Should display number of likes when (@Input likes) is incremented`, () => {
     fixture.detectChanges();
@@ -63,7 +67,7 @@ describe(PhotoFrameComponent.name, () => {
   });
 
   it(`(D) Should display image with src and description when bound to properties`, () => {
-    const description = 'Some description';
+    const description = 'some description';
     const src = 'http://somesite.com/img.jpg';
     component.src = src;
     component.description = description;

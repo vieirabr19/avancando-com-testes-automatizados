@@ -31,7 +31,8 @@ describe(LikeWidgetComponent.name, () => {
     expect(component.id).toBe(someId);
   });
 
-  it(`#${LikeWidgetComponent.prototype.like.name} should trigger (@Output liked) when called`, () => {
+  it(`#${LikeWidgetComponent.prototype.like.name}
+    should trigger (@Output liked) when called`, () => {
       spyOn(component.liked, 'emit');
       fixture.detectChanges();
       component.like();
@@ -43,12 +44,14 @@ describe(LikeWidgetComponent.name, () => {
     component.liked.subscribe(() => {
       component.likes++;
       fixture.detectChanges();
-      const likeCounterEl: HTMLElement = fixture.nativeElement.querySelector('.like-counter');
-      expect(likeCounterEl.textContent.trim()).toBe('1');
+      const counterEl: HTMLElement = fixture.nativeElement
+        .querySelector('.like-counter');
+      expect(counterEl.textContent.trim()).toBe('1');
       done();
     });
-    const likeWidgetContainer: HTMLElement = fixture.nativeElement.querySelector('.like-widget-container');
-    likeWidgetContainer.click();
+    const likeWidgetContainerEl: HTMLElement = fixture.nativeElement
+      .querySelector('.like-widget-container');
+    likeWidgetContainerEl.click();
   });
 
   it(`(D) Should display number of likes when ENTER key is pressed`, done => {
@@ -56,12 +59,15 @@ describe(LikeWidgetComponent.name, () => {
     component.liked.subscribe(() => {
       component.likes++;
       fixture.detectChanges();
-      const likeCounterEl: HTMLElement = fixture.nativeElement.querySelector('.like-counter');
-      expect(likeCounterEl.textContent.trim()).toBe('1');
+      const counterEl: HTMLElement = fixture.nativeElement
+        .querySelector('.like-counter');
+      expect(counterEl.textContent.trim()).toBe('1');
       done();
     });
-    const likeWidgetContainer: HTMLElement = fixture.nativeElement.querySelector('.like-widget-container');
-    const event = new KeyboardEvent('keyup', {key: 'Enter'});
-    likeWidgetContainer.dispatchEvent(event);
+
+    const likeWidgetContainerEl: HTMLElement = fixture.nativeElement
+      .querySelector('.like-widget-container');
+    const event = new KeyboardEvent('keyup', { key: 'Enter' });
+    likeWidgetContainerEl.dispatchEvent(event);
   });
 });

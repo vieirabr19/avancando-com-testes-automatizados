@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { ActionDirective } from './action.directive';
 import { ActionDirectiveModule } from './action.module';
 
 describe(ActionDirective.name, () => {
+
   let fixture: ComponentFixture<ActionDirectiveTestComponent>;
   let component: ActionDirectiveTestComponent;
 
@@ -19,48 +21,44 @@ describe(ActionDirective.name, () => {
   });
 
   it(`(D) (@Output appAction) should emit event with payload when ENTER key is pressed`, () => {
-    const divEl: HTMLElement = fixture.nativeElement.querySelector('.dummy-component');
-    const event = new KeyboardEvent('keyup', {key: 'Enter'});
+    const divEl = fixture.debugElement.query(By.directive(ActionDirective)).nativeElement;
+    const event = new KeyboardEvent('keyup', { key: 'Enter' });
     divEl.dispatchEvent(event);
-    expect(component.hasEvent()).toBeTruthy();
+    expect(component.hasEvent()).toBeTrue();
   });
 
   it(`(D) (@Output appAction) should emit event with payload when clicked`, () => {
-    const divEl = fixture.debugElement.query(By.directive(ActionDirective)).nativeElement;
+    const divEl: HTMLElement = fixture.nativeElement.querySelector('.dummy-component');
     const event = new Event('click');
     divEl.dispatchEvent(event);
-    expect(component.hasEvent()).toBeTruthy();
+    expect(component.hasEvent()).toBeTrue();
   });
 
   it(`(D) (@Output appAction) should emit event with payload when clicked or ENTER key pressed`, () => {
     const divEl: HTMLElement = fixture.nativeElement.querySelector('.dummy-component');
     const clickEvent = new Event('click');
-    const keyBoardEvent = new KeyboardEvent('keyup', {key: 'Enter'});
+    const keyBoardEvent = new KeyboardEvent('keyup', { key: 'Enter' });
     divEl.dispatchEvent(clickEvent);
-    expect(component.hasEvent()).withContext('Click event').toBeTruthy();
-    component.resetFerNewExpectation();
+    expect(component.hasEvent()).withContext('Click event').toBeTrue();
+    component.resetForNewExpectation();
     divEl.dispatchEvent(keyBoardEvent);
-    expect(component.hasEvent()).withContext('Keyboard event "keyup"').toBeTruthy();
+    expect(component.hasEvent()).withContext('Keyboard event "keyup"').toBeTrue();
   });
 });
-
-
 
 @Component({
   template: `<div class="dummy-component" (appAction)="actionHandler($event)"></div>`
 })
 class ActionDirectiveTestComponent {
   private event: Event = null;
-
-  actionHandler(event: Event) {
+  public actionHandler(event: Event): void {
     this.event = event;
   }
-
-  hasEvent(): boolean { 
+  public hasEvent(): boolean {
     return !!this.event;
   }
 
-  resetFerNewExpectation(){
+  public resetForNewExpectation(): void {
     this.event = null;
   }
 }

@@ -6,7 +6,10 @@ import { PhotoFrameComponent } from './photo-frame.component';
 
 @NgModule({
   declarations: [PhotoFrameComponent],
-  imports: [CommonModule, LikeWidgetModule],
+  imports: [
+    CommonModule,
+    LikeWidgetModule
+  ],
   exports: [PhotoFrameComponent]
 })
-export class PhotoFrameModule { }
+export class PhotoFrameModule {}
