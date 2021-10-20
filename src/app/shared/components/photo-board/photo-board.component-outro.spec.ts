@@ -1,5 +1,5 @@
 
-import { Component, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Photo } from './interfaces/photo';
@@ -35,23 +35,14 @@ describe(PhotoBoardComponent.name + ' outros', () => {
   it(`Should display rows and columns when (@Input photos) has value`, () => {
     component.photos = buildPhotoList();
     fixture.detectChanges();
-    expect(component.board.rows.length)
-      .withContext('Number of rows')
-      .toBe(2);
-    expect(component.board.rows[0].length)
-      .withContext('Number of columns from the first row')
-      .toBe(4);
-    expect(component.board.rows[1].length)
-      .withContext('Number of columns from the second row')
-      .toBe(4);
+    expect(component.board.rows.length).withContext('Number of rows').toBe(2);
+    expect(component.board.rows[0].length).withContext('Number of columns from the first row').toBe(4);
+    expect(component.board.rows[1].length).withContext('Number of columns from the second row').toBe(4);
   });
 });
 
 @Component({
-  template: `
-    <app-photo-board [photos]="photos">
-    </app-photo-board>
-  `
+  template: `<app-photo-board [photos]="photos"></app-photo-board>`
 })
 class PhotoBoardTestComponent {
   @ViewChild(PhotoBoardComponent) public board: PhotoBoardComponent;
